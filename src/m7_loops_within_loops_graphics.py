@@ -6,8 +6,8 @@ This problem provides practice at:
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Isabella Popoff.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ###############################################################################
 # Students:
@@ -90,7 +90,7 @@ def hourglass(window, n, point, radius, color):
     a color that rosegraphics understands.
     """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #       We provided some tests for you (above).
     # -------------------------------------------------------------------------
     ###########################################################################
@@ -102,7 +102,27 @@ def hourglass(window, n, point, radius, color):
     #    DIFFICULTY:      8
     #    TIME ESTIMATE:  25 minutes (warning: this problem is challenging)
     # -------------------------------------------------------------------------
-
+    first = rg.Circle(point, radius)
+    first.fill_color = color
+    first.attach_to(window)
+    line = rg.Line(rg.Point(point.x - radius, point.y), rg.Point(point.x + radius, point.y))
+    line.attach_to(window)
+    height = ((2 * radius) ** 2 - radius ** 2) ** (1 / 2)
+    for k in range(n):
+        for j in range(k + 1):
+            c1 = rg.Circle(rg.Point(point.x - k * radius + 2 * j * radius, point.y + height * k), radius)
+            c1.fill_color = color
+            c1.attach_to(window)
+            c2 = rg.Circle(rg.Point(point.x - k * radius + 2 * j * radius, point.y - height * k), radius)
+            c2.fill_color = color
+            c2.attach_to(window)
+            l1 = rg.Line(rg.Point(c1.center.x - radius, c1.center.y),
+                         rg.Point(c1.center.x + radius, c1.center.y))
+            l2 = rg.Line(rg.Point(c2.center.x - radius, c2.center.y),
+                         rg.Point(c2.center.x + radius, c2.center.y))
+            l1.attach_to(window)
+            l2.attach_to(window)
+    window.render()
 
 def run_test_many_hourglasses():
     """ Tests the    many_hourglasses    function. """
@@ -164,7 +184,7 @@ def many_hourglasses(window, square, m, colors):
     each of which denotes a color that rosegraphics understands.
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #       We provided some tests for you (above).
     # -------------------------------------------------------------------------
     ###########################################################################
@@ -180,7 +200,21 @@ def many_hourglasses(window, square, m, colors):
     #                         a correct "hourglass" function above)
     #    TIME ESTIMATE:  20 minutes (warning: this problem is challenging)
     # -------------------------------------------------------------------------
+    c1 = rg.Point(square.center.x - square.length_of_each_side / 2, square.center.y - square.length_of_each_side / 2)
+    c2 = rg.Point(square.center.x + square.length_of_each_side / 2, square.center.y + square.length_of_each_side / 2)
+    r = square.length_of_each_side / 2
+    p1 = rg.Point(square.center.x, square.center.y)
+    for k in range(m):
+        rect = rg.Rectangle(c1, c2)
+        rect.attach_to(window)
+        hourglass(window, k + 1, p1, r, colors[k % len(colors)])
+        p1.x = p1.x + (k + 3 / 2) * square.length_of_each_side
+        c1.x = c2.x
+        c2.x = c2.x + (k + 2) * square.length_of_each_side
+        c1.y = c1.y - ((2 * r) ** 2 - r ** 2) ** (1 / 2)
+        c2.y = c2.y + ((2 * r) ** 2 - r ** 2) ** (1 / 2)
 
+    window.render()
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
