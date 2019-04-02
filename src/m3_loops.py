@@ -6,8 +6,8 @@ This problem provides practice at:
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Isabella Popoff.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ###############################################################################
 # Students:
@@ -46,7 +46,7 @@ def main():
 def run_test_practice_problem3():
     """ Tests the   practice_problem3  function. """
     ###########################################################################
-    # TODO: 2. Implement this TEST function.
+    # DONE: 2. Implement this TEST function.
     #   It TESTS the  practice_problem3  function defined below.
     #   Include at least ** 2 ** ADDITIONAL tests beyond those we wrote.
     #
@@ -124,7 +124,15 @@ def run_test_practice_problem3():
     # Run the 14 tests in the   tests   list constructed above.
     # -------------------------------------------------------------------------
     st.SimpleTestCase.run_tests('practice_problem3', tests)
+    # Test 15:
+    st.SimpleTestCase(practice_problem3,
+                      [26, 3, 1.234],
+                      [1, 1, 1])
 
+    # Test 16:
+    st.SimpleTestCase(practice_problem3,
+                      [500, 5, 1.1777],
+                      [1, 2, 3, 4, 5])
     ###########################################################################
     # TO DO 2 continued:  More tests:
     #      YOU add at least **   2   ** additional tests here.
@@ -217,6 +225,12 @@ def practice_problem3(start, n, threshold):
     #    DIFFICULTY:      5
     #    TIME ESTIMATE:   < 15 minutes.
     ###########################################################################
+    total = []
+    while len(total) < n:
+        if math.sin(start) + math.cos(start) > threshold:
+            total = total + [start]
+        start = start + 1
+    return total
 
 
 # -----------------------------------------------------------------------------
